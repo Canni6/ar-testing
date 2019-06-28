@@ -60,13 +60,13 @@ namespace GoogleARCore.Examples.HelloAR
         // NEW object test code
         public GameObject NewTurbine;
         public float rotationSpeed = 80f;
+        // list to use for addressing WindTurbine prefab child 'RotorGroup'
+        private List<GameObject> RotorGroup = new List<GameObject>();
 
-
-
-        /// <summary>
-        /// The rotation in degrees need to apply to model when the Andy model is placed.
-        /// </summary>
-        private const float k_ModelRotation = 180.0f;
+/// <summary>
+/// The rotation in degrees need to apply to model when the Andy model is placed.
+/// </summary>
+private const float k_ModelRotation = 180.0f;
 
         /// <summary>
         /// True if the app is in the process of quitting due to an ARCore connection error,
@@ -76,8 +76,6 @@ namespace GoogleARCore.Examples.HelloAR
 
         public void Start()
         {
-            // list to use for addressing NewTurbine prefab child 'RotorGroup'
-            private List<GameObject> RotorGroup = new List<GameObject>();
             // loop through NewTurbine transform children
             for (int i = 0; i < NewTurbine.transform.childCount; i++)
             {
@@ -93,7 +91,6 @@ namespace GoogleARCore.Examples.HelloAR
                 }
             }
         }
-
         /// <summary>
         /// The Unity Update() method.
         /// </summary>
@@ -143,7 +140,6 @@ namespace GoogleARCore.Examples.HelloAR
                     //{
                     //    prefab = NewTurbine;
                     //}
-
 
                     // Instantiate Andy model at the hit pose.
                     var TurbineObject = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
