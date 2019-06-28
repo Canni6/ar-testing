@@ -60,7 +60,6 @@ namespace GoogleARCore.Examples.HelloAR
         // NEW object test code
         public GameObject NewTurbine;
         public float rotationSpeed = 80f;
-        private List<GameObject> RotorGroup = new List<GameObject>();
 
 
 
@@ -74,6 +73,26 @@ namespace GoogleARCore.Examples.HelloAR
         /// otherwise false.
         /// </summary>
         private bool m_IsQuitting = false;
+
+        public void Start()
+        {
+            // list to use for addressing NewTurbine prefab child 'RotorGroup'
+            private List<GameObject> RotorGroup = new List<GameObject>();
+            // loop through NewTurbine transform children
+            for (int i = 0; i < NewTurbine.transform.childCount; i++)
+            {
+                // current transform item in transform children loop
+                Transform currentItem = NewTurbine.transform.GetChild(i);
+                // search by name for RotorGroup
+                if (currentItem.name.Equals("RotorGroup"))
+                {
+                    // add current item in transform children loop to RotorGroup list
+                    RotorGroup.Add(currentItem.gameObject);
+                    continue;
+
+                }
+            }
+        }
 
         /// <summary>
         /// The Unity Update() method.
@@ -115,19 +134,7 @@ namespace GoogleARCore.Examples.HelloAR
                     // Choose the Andy model for the Trackable that got hit.
                     GameObject prefab = NewTurbine;
 
-                    for (int i = 0; i < NewTurbine.transform.childCount; i++)
-                    {
-                        Transform currentItem = NewTurbine.transform.GetChild(i);
-                        // search by name
-                        if (currentItem.name.Equals("RotorGroup"))
-                        {
-                            // try create new public variable below...
-                            RotorGroup.Add(currentItem.gameObject);
-                            currentItem.transform.Rotate(0, 0, Time.deltaTime * rotationSpeed);
-                            continue;
-
-                        }
-                    }
+                    
                     ////if (hit.Trackable is FeaturePoint)
                     //{
                     //    prefab = NewTurbine;
